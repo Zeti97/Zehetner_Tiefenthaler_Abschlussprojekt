@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//erstellt von Zehetner
 namespace Abschlussprojekt
 {
-    class Event
+   public class Event
     {
         #region members
         string _name;
@@ -36,7 +37,7 @@ namespace Abschlussprojekt
         #endregion
 
         #region methoden
-
+       
         #endregion
 
     }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//erstellt von Zehetner
 namespace Abschlussprojekt
 {
-    class OnTop
+    public class OnTop
     {
         #region members
         string _marker;
