@@ -225,15 +225,30 @@ namespace Abschlussprojekt
         #endregion
 
         #region constructor
-        public Person() : this("ErrorName", "ErrorName",  new Address())
+        public Person() : this("12345678", "Herrn", "ErrorName", "ErrorName",  new Address(), "ErrorLocation", "ErrorDistrict", 
+                               null, 0, null, 0, 0, 0, 0, 0, 0)
         {
 
         }
-        public Person(string firstName, string surName, Address address)
+        public Person(string ljID, string salutation, string firstName, string surName, Address address, string locationGroup, 
+            string districtOfVillage, List<Event> attendedEvents, int totalpoints, List<OnTop> onTopPointsPerYear, 
+            int totalpointsGeneralEducation, int totalpointsAgricultureAndEnvironment, int totalpointsSportAndSociety, 
+            int totalpointsCultureAndTradition, int totalpointsSeviceAndOrganisation, int totalpointsYouthAndInternationality)
         {
+            LjID = ljID;
+            Salutation = salutation;
             FirstName = firstName;
             Surname = surName;
             _address = address;
+            LocationGroup = locationGroup;
+            DistrictOfVillage = districtOfVillage;
+            TotalPoints = totalpoints;
+            TotalPointsGeneralEducation = totalpointsGeneralEducation;
+            TotalPointsAgricultureAndEnvironment = totalpointsAgricultureAndEnvironment;
+            TotalPointsSportAndSociety = totalpointsSportAndSociety;
+            TotalPointsCultureAndTradition = totalpointsCultureAndTradition;
+            TotalPointsSeviceAndOrganisation = totalpointsSeviceAndOrganisation;
+            TotalPointsYouthAndInternationality = totalpointsYouthAndInternationality;
         }
         #endregion
 
