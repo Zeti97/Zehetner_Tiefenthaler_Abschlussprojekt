@@ -9,16 +9,16 @@ namespace Abschlussprojekt
     public class Person //Tiefenthaler
     {
         #region private members
-        private int _ljID;
+        private string _ljID;
         private string _salutation;
         private string _firstname;
         private string _surname;
         private readonly Address _address;
-        private string _villagegoup;
+        private string _locationGroup;
         private string _districtOfVillage;
         private List<Event> _attendedEvents;
         private int _totalpoints;
-        //private List<OnTop> _onTopPointsperYear;
+        private List<OnTop> _onTopPointsperYear;
         private int _totalpointsGeneralEducation;
         private int _totalpointsAgricultureAndEnvironment;
         private int _totalpointsSportAndSociety;
@@ -28,15 +28,15 @@ namespace Abschlussprojekt
         #endregion
 
         #region public properties
-        public int LjID
+        public string LjID
         {
             get
             {
                 return _ljID;
             }
-            set
+            private set
             {
-                if (true)
+                if (CheckLjID(value))
                 {
                     _ljID = value;
                 }
@@ -52,7 +52,7 @@ namespace Abschlussprojekt
             {
                 return _salutation;
             }
-            set
+            private set
             {
                 if (CheckStringInput(value))
                 {
@@ -108,6 +108,120 @@ namespace Abschlussprojekt
                 return _address;
             }
         }
+        public string LocationGroup
+        {
+            get
+            {
+                return _locationGroup;
+            }
+            private set //Überprüfungen ergänzen
+            {
+                _locationGroup = value;
+            }
+        }
+        public string DistrictOfVillage
+        {
+            get
+            {
+                return _districtOfVillage;
+            }
+            private set //Überprüfungen ergänzen
+            {
+                _districtOfVillage = value;
+            }
+        }
+        public List<Event> AttendedEvents
+        {
+            get
+            {
+                return _attendedEvents;
+            }
+        }
+        public int TotalPoints
+        {
+            get
+            {
+                return _totalpoints;
+            }
+            private set
+            {
+                _totalpoints = value;
+            }
+        }
+        public List<OnTop> OnTopPointsperYear
+        {
+            get
+            {
+                return _onTopPointsperYear;
+            }
+        }
+        public int TotalPointsGeneralEducation
+        {
+            get
+            {
+                return _totalpointsGeneralEducation;
+            }
+            private set
+            {
+                _totalpointsGeneralEducation = value;
+            }
+        }
+        public int TotalPointsAgricultureAndEnvironment
+        {
+            get
+            {
+                return _totalpointsAgricultureAndEnvironment;
+            }
+            private set
+            {
+                _totalpointsAgricultureAndEnvironment = value;
+            }
+        }
+        public int TotalPointsSportAndSociety
+        {
+            get
+            {
+                return _totalpointsSportAndSociety;
+            }
+            private set
+            {
+                _totalpointsSportAndSociety = value;
+            }
+        }
+        public int TotalPointsCultureAndTradition
+        {
+            get
+            {
+                return _totalpointsCultureAndTradition;
+            }
+            private set
+            {
+                _totalpointsCultureAndTradition = value;
+            }
+        }
+        public int TotalPointsSeviceAndOrganisation
+        {
+            get
+            {
+                return _totalpointsSeviceAndOrganisation;
+            }
+            private set
+            {
+                _totalpointsSeviceAndOrganisation = value;
+            }
+        }
+        public int TotalPointsYouthAndInternationality
+        {
+            get
+            {
+                return _totalpointsYouthAndInternationality;
+            }
+            private set
+            {
+                _totalpointsYouthAndInternationality = value;
+            }
+        }
+
         #endregion
 
         #region constructor
@@ -146,8 +260,21 @@ namespace Abschlussprojekt
             }
             return true;
         }
-
-        
+        public static bool CheckLjID(string inputString)
+        {
+            if (string.IsNullOrWhiteSpace(inputString) || inputString.Length == 8)
+            {
+                return false;
+            }
+            for (int i = 0; i < inputString.Length; i++)
+            {
+                if (!char.IsDigit(inputString[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         public static bool GetCheckMethodeForInput(string inputStringformConsole, string variableName)
         {
             switch (variableName)
