@@ -4,18 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tiefenthaler_Zehetner_Webshop
+namespace Abschlussprojekt
 {
     public class Person //Tiefenthaler
     {
         #region private members
+        private string _ljID;
+        private string _salutation;
         private string _firstname;
         private string _surname;
-        private DateTime _dayOfBirth;
         private readonly Address _address;
-        private string _eMailadress;
-        private string _password;
-        private readonly ConsumerBasket _consumerBasket;
+        private string _villagegoup;
+        private string _districtOfVillage;
+        //private List<Veranstalungen> _Veranstaltungen;
+        private int _totalpoints;
+
         #endregion
 
         #region public properties
@@ -232,14 +235,6 @@ namespace Tiefenthaler_Zehetner_Webshop
                     {
                         return Address.CheckStreetorCity(inputStringformConsole);
                     }
-                case "Hausnummer":
-                    {
-                        return Address.CheckNumber(inputStringformConsole);
-                    }
-                case "Länderkennung":
-                    {
-                        return Address.CheckCountryCode(inputStringformConsole);
-                    }
                 case "PLZ":
                     {
                         return Address.CheckZipCode(inputStringformConsole);
@@ -247,14 +242,6 @@ namespace Tiefenthaler_Zehetner_Webshop
                 case "Ort":
                     {
                         return Address.CheckStreetorCity(inputStringformConsole);
-                    }
-                case "E-Mailadresse":
-                    {
-                        return CheckEmailadress(inputStringformConsole);
-                    }
-                case "PIN-Code":
-                    {
-                        return CheckPassword(inputStringformConsole);
                     }
                 default:
                     {
