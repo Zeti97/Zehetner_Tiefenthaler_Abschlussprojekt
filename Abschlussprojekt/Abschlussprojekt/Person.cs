@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tiefenthaler_Zehetner_Webshop
+namespace Abschlussprojekt
 {
     public class Person //Tiefenthaler
     {
