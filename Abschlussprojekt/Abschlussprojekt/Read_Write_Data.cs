@@ -12,8 +12,10 @@ namespace Abschlussprojekt
     {
         #region 
         List<Person> personList = new List<Person>();
+        #endregion
+
         #region methods
-        public void LoadFile(string productDataPath, char seperator, out int error) 
+        public void LoadFile(string dataPath, char seperator, out int error) 
         {
             error = 0;
             int counter = 0;
@@ -21,15 +23,16 @@ namespace Abschlussprojekt
 
             try
             {
-                using (StreamReader reader = new StreamReader(productDataPath, Encoding.GetEncoding("iso-8859-1")))
+                using (StreamReader reader = new StreamReader(dataPath, Encoding.GetEncoding("iso-8859-1")))
                 {
-                    string line = reader.ReadLine();
+                    
            
                     while (reader.Peek() != -1)
                     {
+                        string line = reader.ReadLine();
                         if (counter > 0)
                         {
-                            Person newPersonDataLine = Person.ReadDataLine(line, seperator);
+                            Person newPersonDataLine = Person.ReadPersonFromcsv(line, seperator);
                             Event newEventDataLine = Event.ReadDataLine(line, seperator);
                             
                             int personNumber = CheckIfPersonExists(newPersonDataLine);
@@ -38,11 +41,11 @@ namespace Abschlussprojekt
                             if (newPersonDataLine != null && newEventDataLine != null && personNumber == 0)
                             {
                                 personList.Add(newPersonDataLine);
-                                personList[lengthOfList].AddEvent(newEventDataLine);
+                            //    personList[lengthOfList].AddEvent(newEventDataLine);
                             }
                             if (newPersonDataLine != null && newEventDataLine != null && personNumber != 0)
                             {
-                                personList[personNumber].AddEvent(newEventDataLine);
+                               // personList[personNumber].AddEvent(newEventDataLine);
                             }
                         }
                         counter++;
