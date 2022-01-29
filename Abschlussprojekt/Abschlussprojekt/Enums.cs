@@ -11,14 +11,13 @@ namespace Abschlussprojekt
     {
          public enum emphasis
         {
-            Default,
+            Unknown,
             Allgemeinbildung,
             Landwirtschaft_Umwelt,
             Sport_Gesellschaft,
             Kultur_Brauchtum,
             Service_Organisation,
-            Young_International,
-            Unknown
+            Young_International  
         }
     }
 }
