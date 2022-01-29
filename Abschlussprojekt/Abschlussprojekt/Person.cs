@@ -249,6 +249,8 @@ namespace Abschlussprojekt
             TotalPointsCultureAndTradition = totalpointsCultureAndTradition;
             TotalPointsSeviceAndOrganisation = totalpointsSeviceAndOrganisation;
             TotalPointsYouthAndInternationality = totalpointsYouthAndInternationality;
+            _attendedEvents = new List<Event>();
+            _onTopPointsperYear = new List<OnTop>();
         }
         #endregion
 
@@ -277,7 +279,7 @@ namespace Abschlussprojekt
         }
         public static bool CheckLjID(string inputString)
         {
-            if (string.IsNullOrWhiteSpace(inputString) || inputString.Length == 8)
+            if (string.IsNullOrWhiteSpace(inputString) || inputString.Length != 8)
             {
                 return false;
             }
@@ -311,18 +313,18 @@ namespace Abschlussprojekt
         }
         public void AddEventtoPerson(Event toAddedEvent)
         {
-            this.AttendedEvents.Add(toAddedEvent);
-            this.TotalPoints =+ toAddedEvent.Points;
+            this._attendedEvents.Add(toAddedEvent);  
+            this.TotalPoints += toAddedEvent.Points;
             bool markerContained = false;
             for (int i = 0; i < this.OnTopPointsperYear.ToArray().Length; i++)
             {
-                if(toAddedEvent.Marker == this.OnTopPointsperYear[i].Marker)
+                if (toAddedEvent.Marker == this.OnTopPointsperYear[i].Marker)
                 {
                     markerContained = true;
                     this.OnTopPointsperYear[i].Points = +toAddedEvent.Points;
                 }
             }
-            if(!markerContained)
+            if (!markerContained)
             {
                 this.OnTopPointsperYear.Add(new OnTop(toAddedEvent.Marker, toAddedEvent.Points));
             }
