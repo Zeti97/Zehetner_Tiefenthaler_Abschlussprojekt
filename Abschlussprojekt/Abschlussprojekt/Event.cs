@@ -40,6 +40,17 @@ namespace Abschlussprojekt
 
             }
         }
+        public Enums.emphasis Emphasis
+        {
+            get
+            {
+                return _emphasis;
+            }
+            private set
+            {
+
+            }
+        }
         #endregion
 
         #region constructor
