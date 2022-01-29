@@ -290,36 +290,6 @@ namespace Abschlussprojekt
             }
             return true;
         }
-        public static bool GetCheckMethodeForInput(string inputStringformConsole, string variableName)
-        {
-            switch (variableName)
-            {
-                case "Vornamen":
-                    {
-                        return CheckStringInput(inputStringformConsole);
-                    }
-                case "Nachnamen":
-                    {
-                        return CheckStringInput(inputStringformConsole);
-                    }
-                case "Straße":
-                    {
-                        return Address.CheckStreetorCity(inputStringformConsole);
-                    }
-                case "PLZ":
-                    {
-                        return Address.CheckZipCode(inputStringformConsole);
-                    }
-                case "Ort":
-                    {
-                        return Address.CheckStreetorCity(inputStringformConsole);
-                    }
-                default:
-                    {
-                        return false;
-                    }
-            }
-        }
         public string ToCsvString(char seperator)
         {
             return FirstName + seperator + Surname + seperator + Address.ToCsvSring(seperator) + seperator;
@@ -327,7 +297,16 @@ namespace Abschlussprojekt
         public static Person ReadPersonFromcsv(string csvline, char seperator)
         {
             string[] parts = csvline.Split(seperator);
-            Person readPerson = new Person(parts[0], parts[1], new Address(parts[2], parts[3], parts[4]));
+            Person readPerson = new Person();
+            bool checkinput = CheckLjID(parts[0]) && CheckStringInput(parts[1]) && CheckStringInput(parts[3]) && CheckStringInput(parts[4]) &&
+                              Address.CheckStreetorCity(parts[7]) && Address.CheckZipCode(parts[8].Remove(4).Trim()) &&
+                              Address.CheckStreetorCity(parts[8].Remove(0, 5).Trim());
+            if(checkinput)
+            {
+                readPerson = new Person(parts[0], parts[1], parts[3], parts[4],
+                             new Address(parts[7], parts[8].Remove(4).Trim(), parts[8].Remove(0, 5).Trim()), parts[9], parts[10],
+                             null, 0, null, 0, 0, 0, 0, 0, 0);
+            }
             return readPerson;
         }
         #endregion
