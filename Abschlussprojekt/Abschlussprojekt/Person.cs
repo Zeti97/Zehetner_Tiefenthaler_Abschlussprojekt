@@ -17,14 +17,14 @@ namespace Abschlussprojekt
         private string _locationGroup;
         private string _districtOfVillage;
         private List<Event> _attendedEvents;
-        private int _totalpoints;
+        private double _totalpoints;
         private List<OnTop> _onTopPointsperYear;
-        private int _totalpointsGeneralEducation;
-        private int _totalpointsAgricultureAndEnvironment;
-        private int _totalpointsSportAndSociety;
-        private int _totalpointsCultureAndTradition;
-        private int _totalpointsSeviceAndOrganisation;
-        private int _totalpointsYouthAndInternationality;
+        private double _totalpointsGeneralEducation;
+        private double _totalpointsAgricultureAndEnvironment;
+        private double _totalpointsSportAndSociety;
+        private double _totalpointsCultureAndTradition;
+        private double _totalpointsSeviceAndOrganisation;
+        private double _totalpointsYouthAndInternationality;
         #endregion
 
         #region public properties
@@ -137,7 +137,7 @@ namespace Abschlussprojekt
                 return _attendedEvents;
             }
         }
-        public int TotalPoints
+        public double TotalPoints
         {
             get
             {
@@ -155,7 +155,7 @@ namespace Abschlussprojekt
                 return _onTopPointsperYear;
             }
         }
-        public int TotalPointsGeneralEducation
+        public double TotalPointsGeneralEducation
         {
             get
             {
@@ -166,7 +166,7 @@ namespace Abschlussprojekt
                 _totalpointsGeneralEducation = value;
             }
         }
-        public int TotalPointsAgricultureAndEnvironment
+        public double TotalPointsAgricultureAndEnvironment
         {
             get
             {
@@ -177,7 +177,7 @@ namespace Abschlussprojekt
                 _totalpointsAgricultureAndEnvironment = value;
             }
         }
-        public int TotalPointsSportAndSociety
+        public double TotalPointsSportAndSociety
         {
             get
             {
@@ -188,7 +188,7 @@ namespace Abschlussprojekt
                 _totalpointsSportAndSociety = value;
             }
         }
-        public int TotalPointsCultureAndTradition
+        public double TotalPointsCultureAndTradition
         {
             get
             {
@@ -199,7 +199,7 @@ namespace Abschlussprojekt
                 _totalpointsCultureAndTradition = value;
             }
         }
-        public int TotalPointsSeviceAndOrganisation
+        public double TotalPointsSeviceAndOrganisation
         {
             get
             {
@@ -210,7 +210,7 @@ namespace Abschlussprojekt
                 _totalpointsSeviceAndOrganisation = value;
             }
         }
-        public int TotalPointsYouthAndInternationality
+        public double TotalPointsYouthAndInternationality
         {
             get
             {
@@ -308,6 +308,25 @@ namespace Abschlussprojekt
                              null, 0, null, 0, 0, 0, 0, 0, 0);
             }
             return readPerson;
+        }
+        public void AddEventtoPerson(Event toAddedEvent)
+        {
+            this.AttendedEvents.Add(toAddedEvent);
+            this.TotalPoints =+ toAddedEvent.Points;
+            bool markerContained = false;
+            for (int i = 0; i < this.OnTopPointsperYear.ToArray().Length; i++)
+            {
+                if(toAddedEvent.Marker == this.OnTopPointsperYear[i].Marker)
+                {
+                    markerContained = true;
+                    this.OnTopPointsperYear[i].Points = +toAddedEvent.Points;
+                }
+            }
+            if(!markerContained)
+            {
+                this.OnTopPointsperYear.Add(new OnTop(toAddedEvent.Marker, toAddedEvent.Points));
+            }
+
         }
         #endregion
 

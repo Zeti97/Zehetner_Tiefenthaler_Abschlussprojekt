@@ -34,7 +34,7 @@ namespace Abschlussprojekt
                         {
                             Person newPersonDataLine = Person.ReadPersonFromcsv(line, seperator);
                             Event newEventDataLine = Event.ReadDataLine(line, seperator);
-                            
+
                             int personNumber = CheckIfPersonExists(newPersonDataLine);
                             int lengthOfList = personList.ToArray().Length;
 
@@ -83,7 +83,7 @@ namespace Abschlussprojekt
             int existingPerson = 0;
             for (int i = 0; i < personList.ToArray().Length; i++)
             {
-               if(personList[i] == person)
+                if (personList[i] == person)
                 {
                     existingPerson = i;
                     break;
