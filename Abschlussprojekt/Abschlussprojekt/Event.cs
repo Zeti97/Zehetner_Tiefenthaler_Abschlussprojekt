@@ -57,7 +57,7 @@ namespace Abschlussprojekt
         public Event()
         {
             _name = "Default";
-            _emphasis = Enums.emphasis.Default;
+            _emphasis = Enums.emphasis.Unknown;
             _category = "Default";
             _points = 0;
             _marker = "";
@@ -82,12 +82,12 @@ namespace Abschlussprojekt
             //convert stringdata to correct Datatype
             string name = parts[19];
             string rowEmphasis = parts[20].Replace(" ",String.Empty).Replace('&', '_');
-            bool conversationOfEmphasisOk = checkIfEmphasisOk(rowEmphasis, out Enums.emphasis emphasis);
+            Enums.emphasis emphasis= ConvertEmphasis(rowEmphasis);
             string categorie = parts[21];
-            bool conversationOfPointsOk = checkIfCorrectNumber(parts[26], out double points);
+            bool conversationOfPointsOk = CheckIfCorrectNumber(parts[26], out double points);
             string marker = parts[28];
 
-            readOfDataSuccesfull = conversationOfEmphasisOk && conversationOfPointsOk;
+            readOfDataSuccesfull = conversationOfPointsOk;
 
             //create new object of class AppData
             if (readOfDataSuccesfull)
@@ -96,16 +96,15 @@ namespace Abschlussprojekt
             }
             return readData;
         }
-        static bool checkIfEmphasisOk(string rowEmphasis, out Enums.emphasis emphasis)
+        static Enums.emphasis ConvertEmphasis(string rowEmphasis)
         {
-            bool correctEmphasisType = false;
-            emphasis = Enums.emphasis.Default;
+            Enums.emphasis emphasis = Enums.emphasis.Unknown;
 
-            correctEmphasisType = Enum.TryParse<Enums.emphasis>(rowEmphasis, out emphasis);
+            bool correctEmphasisType = Enum.TryParse<Enums.emphasis>(rowEmphasis, out emphasis);
 
-            return correctEmphasisType;
+            return emphasis;
         }
-        static bool checkIfCorrectNumber(string rowNumber, out double number)
+        static bool CheckIfCorrectNumber(string rowNumber, out double number)
         {
             bool correctNumerType = false;
             number = 0.0;
