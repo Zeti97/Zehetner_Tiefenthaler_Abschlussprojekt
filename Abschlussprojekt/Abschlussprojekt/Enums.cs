@@ -17,7 +17,8 @@ namespace Abschlussprojekt
             Sport_Gesellschaft,
             Kultur_Brauchtum,
             Service_Organisation,
-            Young_International
+            Young_International,
+            Unknown
         }
     }
 }
