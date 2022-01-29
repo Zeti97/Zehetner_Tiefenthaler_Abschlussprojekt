@@ -13,7 +13,7 @@ namespace Abschlussprojekt
         #region 
         List<Person> personList = new List<Person>();
         #region methods
-        public void LoadFile(string productDataPath, char seperator, out int error)  //Zehetner
+        public void LoadFile(string productDataPath, char seperator, out int error) 
         {
             error = 0;
             int counter = 0;
