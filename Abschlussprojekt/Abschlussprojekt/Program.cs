@@ -13,8 +13,7 @@ namespace Abschlussprojekt
             Read_Write_Data personList = new Read_Write_Data();
             ReadData(personList);
 
-            Console.ReadLine();
-            
+            Console.ReadLine();           
         }
 
         static void ReadData(Read_Write_Data personList)
