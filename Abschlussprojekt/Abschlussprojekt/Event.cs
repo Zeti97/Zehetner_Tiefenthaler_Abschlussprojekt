@@ -81,8 +81,8 @@ namespace Abschlussprojekt
 
             //convert stringdata to correct Datatype
             string name = parts[19];
-            string rowEmphasis = parts[20].Replace('&', '_').Trim();
-            bool conversationOfEmphasisOk = checkIfEmphasisOk(parts[20], out Enums.emphasis emphasis);
+            string rowEmphasis = parts[20].Replace(" ",String.Empty).Replace('&', '_');
+            bool conversationOfEmphasisOk = checkIfEmphasisOk(rowEmphasis, out Enums.emphasis emphasis);
             string categorie = parts[21];
             bool conversationOfPointsOk = checkIfCorrectNumber(parts[26], out double points);
             string marker = parts[28];
@@ -101,7 +101,7 @@ namespace Abschlussprojekt
             bool correctEmphasisType = false;
             emphasis = Enums.emphasis.Default;
 
-            correctEmphasisType = Enum.TryParse<Enums.emphasis>(rowEmphasis, out emphasis); ;
+            correctEmphasisType = Enum.TryParse<Enums.emphasis>(rowEmphasis, out emphasis);
 
             return correctEmphasisType;
         }
