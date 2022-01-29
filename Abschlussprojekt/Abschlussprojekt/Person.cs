@@ -311,9 +311,10 @@ namespace Abschlussprojekt
             }
             return readPerson;
         }
-        public void AddEventtoPerson(Event toAddedEvent)
+        public void AddEventtoPerson(Event toAddedEvent, out int error)
         {
-            this._attendedEvents.Add(toAddedEvent);  
+            error = 0;
+            this.AttendedEvents.Add(toAddedEvent);
             this.TotalPoints += toAddedEvent.Points;
             bool markerContained = false;
             for (int i = 0; i < this.OnTopPointsperYear.ToArray().Length; i++)
@@ -324,11 +325,42 @@ namespace Abschlussprojekt
                     this.OnTopPointsperYear[i].Points = +toAddedEvent.Points;
                 }
             }
-            if (!markerContained)
+            try
             {
-                this.OnTopPointsperYear.Add(new OnTop(toAddedEvent.Marker, toAddedEvent.Points));
+                if (!markerContained)
+                {
+                    this.OnTopPointsperYear.Add(new OnTop(toAddedEvent.Marker, toAddedEvent.Points));
+                }
             }
-
+            catch(Exception)
+            {
+                error = 99;
+            }
+            switch (toAddedEvent.Emphasis)
+            {
+                case Enums.emphasis.Default:
+                    break;
+                case Enums.emphasis.Allgemeinbildung:
+                    this.TotalPointsGeneralEducation =+ toAddedEvent.Points;
+                    break;
+                case Enums.emphasis.Landwirtschaft_Umwelt:
+                    this.TotalPointsAgricultureAndEnvironment =+ toAddedEvent.Points;
+                    break;
+                case Enums.emphasis.Sport_Gesellschaft:
+                    this.TotalPointsSportAndSociety =+ toAddedEvent.Points;
+                    break;
+                case Enums.emphasis.Kultur_Brauchtum:
+                    this.TotalPointsCultureAndTradition = +toAddedEvent.Points;
+                    break;
+                case Enums.emphasis.Service_Organisation:
+                    this.TotalPointsSeviceAndOrganisation = +toAddedEvent.Points;
+                    break;
+                case Enums.emphasis.Young_International:
+                    this.TotalPointsYouthAndInternationality = +toAddedEvent.Points;
+                    break;
+                default:
+                    break;
+            }
         }
         #endregion
 
