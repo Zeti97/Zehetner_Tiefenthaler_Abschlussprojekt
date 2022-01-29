@@ -309,6 +309,15 @@ namespace Abschlussprojekt
             }
             return readPerson;
         }
+        public void AddEventtoPerson(Event toAddedEvent)
+        {
+            this.AttendedEvents.Add(toAddedEvent);
+            this.TotalPoints =+ toAddedEvent.
+            for (int i = 0; i < this.OnTopPointsperYear.ToArray().Length; i++)
+            {
+
+            }
+        }
         #endregion
 
         #region override mehtods

@@ -13,7 +13,7 @@ namespace Abschlussprojekt
         #region 
         List<Person> personList = new List<Person>();
         #region methods
-        public void LoadFile(string productDataPath, char seperator, out int error) 
+        public void LoadFile(string productDataPath, char seperator, out int error)
         {
             error = 0;
             int counter = 0;
@@ -24,14 +24,14 @@ namespace Abschlussprojekt
                 using (StreamReader reader = new StreamReader(productDataPath, Encoding.GetEncoding("iso-8859-1")))
                 {
                     string line = reader.ReadLine();
-           
+
                     while (reader.Peek() != -1)
                     {
                         if (counter > 0)
                         {
                             Person newPersonDataLine = Person.ReadDataLine(line, seperator);
                             Event newEventDataLine = Event.ReadDataLine(line, seperator);
-                            
+
                             int personNumber = CheckIfPersonExists(newPersonDataLine);
                             int lengthOfList = personList.ToArray().Length;
 
@@ -80,7 +80,7 @@ namespace Abschlussprojekt
             int existingPerson = 0;
             for (int i = 0; i < personList.ToArray().Length; i++)
             {
-               if(personList[i] == person)
+                if (personList[i] == person)
                 {
                     existingPerson = i;
                     break;
