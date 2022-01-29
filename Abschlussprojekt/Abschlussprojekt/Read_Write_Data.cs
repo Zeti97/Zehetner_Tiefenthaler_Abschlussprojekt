@@ -41,11 +41,11 @@ namespace Abschlussprojekt
                             if (newPersonDataLine != null && newEventDataLine != null && personNumber == -1)
                             {
                                 personList.Add(newPersonDataLine);
-                                personList[0].AddEventtoPerson(newEventDataLine);
+                                personList[lengthOfList].AddEventtoPerson(newEventDataLine,out int error1);
                             }
                             if (newPersonDataLine != null && newEventDataLine != null && personNumber != -1)
                             {
-                                personList[personNumber].AddEventtoPerson(newEventDataLine);
+                                personList[personNumber].AddEventtoPerson(newEventDataLine, out int error2);
                             }
                         }
                         counter++;
