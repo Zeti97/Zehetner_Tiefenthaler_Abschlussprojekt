@@ -14,7 +14,32 @@ namespace Abschlussprojekt
         Enums.emphasis _emphasis;
         string _category;
         double _points;
-        string _marker; 
+        string _marker;
+        #endregion
+
+        #region properties
+        public string Marker
+        {
+            get
+            {
+                return _marker;
+            }
+           private set
+            {
+
+            }
+        }
+        public double Points
+        {
+            get
+            {
+                return _points;
+            }
+            private set
+            {
+
+            }
+        }
         #endregion
 
         #region constructor
