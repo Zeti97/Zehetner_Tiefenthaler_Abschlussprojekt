@@ -322,14 +322,15 @@ namespace Abschlussprojekt
                 if (toAddedEvent.Marker == this.OnTopPointsperYear[i].Marker)
                 {
                     markerContained = true;
-                    this.OnTopPointsperYear[i].Points = +toAddedEvent.Points;
+                    this.OnTopPointsperYear[i].Points += toAddedEvent.Points;
                 }
             }
             try
             {
                 if (!markerContained)
                 {
-                    this.OnTopPointsperYear.Add(new OnTop(toAddedEvent.Marker, toAddedEvent.Points));
+                    OnTop onTop = new OnTop(toAddedEvent.Marker, toAddedEvent.Points);
+                    this.OnTopPointsperYear.Add(onTop);
                 }
             }
             catch(Exception)
@@ -338,25 +339,25 @@ namespace Abschlussprojekt
             }
             switch (toAddedEvent.Emphasis)
             {
-                case Enums.emphasis.Default:
+                case Enums.emphasis.Unknown:
                     break;
                 case Enums.emphasis.Allgemeinbildung:
-                    this.TotalPointsGeneralEducation =+ toAddedEvent.Points;
+                    this.TotalPointsGeneralEducation += toAddedEvent.Points;
                     break;
                 case Enums.emphasis.Landwirtschaft_Umwelt:
-                    this.TotalPointsAgricultureAndEnvironment =+ toAddedEvent.Points;
+                    this.TotalPointsAgricultureAndEnvironment += toAddedEvent.Points;
                     break;
                 case Enums.emphasis.Sport_Gesellschaft:
-                    this.TotalPointsSportAndSociety =+ toAddedEvent.Points;
+                    this.TotalPointsSportAndSociety += toAddedEvent.Points;
                     break;
                 case Enums.emphasis.Kultur_Brauchtum:
-                    this.TotalPointsCultureAndTradition = +toAddedEvent.Points;
+                    this.TotalPointsCultureAndTradition += toAddedEvent.Points;
                     break;
                 case Enums.emphasis.Service_Organisation:
-                    this.TotalPointsSeviceAndOrganisation = +toAddedEvent.Points;
+                    this.TotalPointsSeviceAndOrganisation += toAddedEvent.Points;
                     break;
                 case Enums.emphasis.Young_International:
-                    this.TotalPointsYouthAndInternationality = +toAddedEvent.Points;
+                    this.TotalPointsYouthAndInternationality += toAddedEvent.Points;
                     break;
                 default:
                     break;
