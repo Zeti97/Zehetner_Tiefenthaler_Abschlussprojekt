@@ -38,14 +38,14 @@ namespace Abschlussprojekt
                             int personNumber = CheckIfPersonExists(newPersonDataLine);
                             int lengthOfList = personList.ToArray().Length;
 
-                            if (newPersonDataLine != null && newEventDataLine != null && personNumber == 0)
+                            if (newPersonDataLine != null && newEventDataLine != null && personNumber == -1)
                             {
                                 personList.Add(newPersonDataLine);
-                            //    personList[lengthOfList].AddEvent(newEventDataLine);
+                                personList[0].AddEventtoPerson(newEventDataLine);
                             }
-                            if (newPersonDataLine != null && newEventDataLine != null && personNumber != 0)
+                            if (newPersonDataLine != null && newEventDataLine != null && personNumber != -1)
                             {
-                               // personList[personNumber].AddEvent(newEventDataLine);
+                                personList[personNumber].AddEventtoPerson(newEventDataLine);
                             }
                         }
                         counter++;
@@ -80,10 +80,10 @@ namespace Abschlussprojekt
 
         private int CheckIfPersonExists(Person person)
         {
-            int existingPerson = 0;
+            int existingPerson = -1;
             for (int i = 0; i < personList.ToArray().Length; i++)
             {
-                if (personList[i] == person)
+                if (personList[i].LjID == person.LjID)
                 {
                     existingPerson = i;
                     break;
