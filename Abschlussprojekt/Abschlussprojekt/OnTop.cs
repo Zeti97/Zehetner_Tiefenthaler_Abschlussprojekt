@@ -22,7 +22,7 @@ namespace Abschlussprojekt
             }
             set
             {
-                if (checkIfOnTopMarker(Marker) == true)
+                if (checkIfOnTopMarker(value) == true)
                 {
                     _marker = Marker;
                 }
@@ -40,7 +40,7 @@ namespace Abschlussprojekt
             }
             set
             {
-                if(checkIfCorrectNumber(Points) == true)
+                if(checkIfCorrectNumber(value) == true)
                 {
                     _points = Points;
                 }
@@ -67,12 +67,13 @@ namespace Abschlussprojekt
         #endregion
 
         #region methods
-        static bool checkIfOnTopMarker (string marker)
+         static bool checkIfOnTopMarker (string marker)
         {
             bool isOnTopMarker = false;
-
-            if (marker.Substring(0, 5) == "onTop") isOnTopMarker = true;
-
+            if (marker.Length > 5)
+            {
+                if (marker.Substring(0, 5) == "onTop") isOnTopMarker = true;
+            }
             return isOnTopMarker;
         }
         static bool checkIfCorrectNumber (double number)
