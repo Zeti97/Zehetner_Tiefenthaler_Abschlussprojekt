@@ -69,7 +69,7 @@ namespace Abschlussprojekt
                         for (int i = 0; i < filteredList.ToArray().Length; i++)
                         {
                             Console.WriteLine(Helper.CreateLineForConsolePoints(filteredList[i]) + 
-                                              filteredList[i].OnTopPointsperYear[0].Marker.PadRight(10) + 
+                                              filteredList[i].OnTopPointsperYear[0].Marker.PadRight(18) + 
                                               filteredList[i].OnTopPointsperYear[0].Points.ToString("0.0").PadRight(8));
                         }
                         bool decisioneToSaveData = DecisionQuestion("Wollen Sie Ihre gefilterten Daten in eine Datei schreiben?");
