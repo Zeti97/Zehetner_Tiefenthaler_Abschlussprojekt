@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Abschlussprojekt
 {
-    public class Helper
+    public class Helper //Tiefenthaler
     {
         #region methods
         public List<Person> filteredPerPointsToList(List<Person> toFilterPersonList, double pointLimit)
