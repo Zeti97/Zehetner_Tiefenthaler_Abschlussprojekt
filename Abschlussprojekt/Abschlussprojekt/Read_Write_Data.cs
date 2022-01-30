@@ -11,10 +11,18 @@ namespace Abschlussprojekt
 {
     public class Read_Write_Data
     {
-        #region 
-        List<Person> personList = new List<Person>();
+        #region members
+        List<Person> _personList = new List<Person>();
         #endregion
-
+        #region properties
+        public List<Person> PersonList
+        {
+            get
+            {
+                return _personList;
+            }
+        }
+        #endregion
         #region methods
         public void LoadFile(string dataPath, char seperator, out int error) 
         {
@@ -37,16 +45,16 @@ namespace Abschlussprojekt
                             Event newEventDataLine = Event.ReadDataLine(line, seperator);
 
                             int personNumber = CheckIfPersonExists(newPersonDataLine);
-                            int lengthOfList = personList.ToArray().Length;
+                            int lengthOfList = _personList.ToArray().Length;
 
                             if (newPersonDataLine != null && newEventDataLine != null && personNumber == -1)
                             {
-                                personList.Add(newPersonDataLine);
-                                personList[lengthOfList].AddEventtoPerson(newEventDataLine,out int error1);
+                                _personList.Add(newPersonDataLine);
+                                _personList[lengthOfList].AddEventtoPerson(newEventDataLine,out int error1);
                             }
                             if (newPersonDataLine != null && newEventDataLine != null && personNumber != -1)
                             {
-                                personList[personNumber].AddEventtoPerson(newEventDataLine, out int error2);
+                                _personList[personNumber].AddEventtoPerson(newEventDataLine, out int error2);
                             }
                         }
                         counter++;
@@ -82,9 +90,9 @@ namespace Abschlussprojekt
         private int CheckIfPersonExists(Person person)
         {
             int existingPerson = -1;
-            for (int i = 0; i < personList.ToArray().Length; i++)
+            for (int i = 0; i < _personList.ToArray().Length; i++)
             {
-                if (personList[i].LjID == person.LjID)
+                if (_personList[i].LjID == person.LjID)
                 {
                     existingPerson = i;
                     break;

@@ -17,7 +17,7 @@ namespace Abschlussprojekt
             {
                 MainMenue(personList, dataPath);
             }
-            Console.ReadLine();           
+            Console.ReadLine();
         }
         static void ReadData(Read_Write_Data personList, out string dataPath)
         {
@@ -45,12 +45,38 @@ namespace Abschlussprojekt
             {
                 case 1: //Filter per Points
                     {
-                        
+                        double limitForFilter = AskForLimit();
+                        List<Person> filteredList = Helper.filteredPerPointsToList(personList.PersonList, limitForFilter);
+                        for (int i = 0; i < filteredList.ToArray().Length; i++)
+                        {
+                            Console.WriteLine(Helper.CreateLineForConsolePoints(filteredList[i]) + 
+                                              filteredList[i].TotalPoints.ToString("0.0").PadRight(8));
+                        }
+                        bool decisioneToSaveData = DecisionQuestion("Wollen Sie Ihre gefilterten Daten in eine Datei schreiben?");
+                        if(decisioneToSaveData)
+                        {
+                            Read_Write_Data.WritePersonTotalPointsToCSV(filteredList, dataPath, out int error);
+                            ErrorHandlingStream(error, "Schreiben der Daten in Datei");
+                        }
                         break;
                     }
                 case 2: //Filter per OnTop
                     {
-                       
+                        double limitForFilter = AskForLimit();
+                        string askedMarker = AskForMarker();
+                        List<Person> filteredList = Helper.filteredPerOnTopPointsToList(personList.PersonList, limitForFilter, askedMarker);
+                        for (int i = 0; i < filteredList.ToArray().Length; i++)
+                        {
+                            Console.WriteLine(Helper.CreateLineForConsolePoints(filteredList[i]) + 
+                                              filteredList[i].OnTopPointsperYear[0].Marker.PadRight(10) + 
+                                              filteredList[i].OnTopPointsperYear[0].Points.ToString("0.0").PadRight(8));
+                        }
+                        bool decisioneToSaveData = DecisionQuestion("Wollen Sie Ihre gefilterten Daten in eine Datei schreiben?");
+                        if (decisioneToSaveData)
+                        {
+                            Read_Write_Data.WritePersonOnTOPPointsToCSV(filteredList, dataPath, out int error);
+                            ErrorHandlingStream(error, "Schreiben der Daten in Datei");
+                        }
                         break;
                     }
 
@@ -160,6 +186,68 @@ namespace Abschlussprojekt
                         }
                 }
             }
+        }
+        static double AskForLimit()
+        {
+            double limitPoints;
+            bool checkOfLimitIsOk;
+            do
+            {
+                Console.WriteLine();
+                Console.WriteLine("Bitte geben Sie einen minimalen Gernzwert der Punkte ein.");
+                string limitString = Console.ReadLine();
+                bool conversionOK = double.TryParse(limitString, out limitPoints);
+                checkOfLimitIsOk = conversionOK && limitPoints >= 0;
+                if (!checkOfLimitIsOk)
+                {
+                    Console.WriteLine("Das Limit muss größer 0 sein und darf nur Zahlen enthalten!");
+                }
+            }
+            while (!checkOfLimitIsOk);
+
+            return limitPoints;
+        }
+        public static bool DecisionQuestion(string askingText)
+        {
+            Console.Write(askingText);
+            string decsionContinue = Console.ReadLine();
+            bool decision = decsionContinue.ToLower().Equals("j");
+            return decision;
+        }
+        public static string AskForMarker()
+        {
+            string askedMarker;
+            bool checkedMarker;
+            do
+            {
+                Console.WriteLine();
+                Console.WriteLine("Bitte geben Sie das Jahr ein, für welches Sie die OnTop-Punkte suchen wollen?\n(Format: JJJJ/JJ)\n");
+                askedMarker = Console.ReadLine();
+                checkedMarker = CheckMarker(askedMarker);
+
+                if (!checkedMarker)
+                {
+                    Console.WriteLine("Ihre Eingabe war nicht korrekt. Bitte beachte das vorgegebene Format.");
+                }
+            }
+            while (!checkedMarker);
+            return (askedMarker);
+        }
+        public static bool CheckMarker(string inputMarker)
+        {
+            string removeSlashString = inputMarker.Remove(4, 1);
+            if(!Equals(inputMarker[4], '/'))
+            {
+                return false;
+            }
+            for (int i = 0; i < removeSlashString.Length; i++)
+            {
+                if(!char.IsDigit(removeSlashString[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
