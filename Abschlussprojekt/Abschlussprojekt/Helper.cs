@@ -9,7 +9,7 @@ namespace Abschlussprojekt
     public class Helper //Tiefenthaler
     {
         #region methods
-        public List<Person> filteredPerPointsToList(List<Person> toFilterPersonList, double pointLimit)
+        public static List<Person> filteredPerPointsToList(List<Person> toFilterPersonList, double pointLimit)
         {
             List<Person> filteredPerson = new List<Person>();
             for (int i = 0; i < toFilterPersonList.ToArray().Length; i++)
@@ -21,7 +21,7 @@ namespace Abschlussprojekt
             }
             return filteredPerson;
         }
-        public List<Person> filteredPerOnTopPointsToList(List<Person> toFilterPersonList, double pointLimit, string markerYear)
+        public static List<Person> filteredPerOnTopPointsToList(List<Person> toFilterPersonList, double pointLimit, string markerYear)
         {
             List<Person> filteredPerson = new List<Person>();
             for (int i = 0; i < toFilterPersonList.ToArray().Length; i++)
@@ -38,6 +38,12 @@ namespace Abschlussprojekt
                 }
             }
             return filteredPerson;
+        }
+        public static string CreateLineForConsolePoints(Person personForConsole)
+        {
+            string lineForconsole = personForConsole.LjID.PadRight(10) + personForConsole.Salutation.PadRight(8) +
+                                    personForConsole.FirstName.PadRight(15) + personForConsole.Surname.PadRight(15);
+            return lineForconsole;
         }
         #endregion
     }
