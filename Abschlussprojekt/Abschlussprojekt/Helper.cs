@@ -42,7 +42,7 @@ namespace Abschlussprojekt
         public static string CreateLineForConsolePoints(Person personForConsole)
         {
             string lineForconsole = personForConsole.LjID.PadRight(10) + personForConsole.Salutation.PadRight(8) +
-                                    personForConsole.FirstName.PadRight(15) + personForConsole.Surname.PadRight(15);
+                                    personForConsole.FirstName.PadRight(15) + personForConsole.Surname.PadRight(25);
             return lineForconsole;
         }
         #endregion
