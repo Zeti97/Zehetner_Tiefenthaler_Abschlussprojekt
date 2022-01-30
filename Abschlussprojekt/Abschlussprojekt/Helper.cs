@@ -32,6 +32,8 @@ namespace Abschlussprojekt
                     {
                         if(toFilterPersonList[i].OnTopPointsperYear[j].Points >= pointLimit)
                         {
+                            OnTop ontop = toFilterPersonList[i].OnTopPointsperYear[j];
+                            toFilterPersonList[i].OnTopPointsperYear[0] = ontop;
                             filteredPerson.Add(toFilterPersonList[i]);
                         }
                     }
