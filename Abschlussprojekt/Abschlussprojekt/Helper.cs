@@ -9,7 +9,7 @@ namespace Abschlussprojekt
     public class Helper
     {
         #region methods
-        public List<Person> filteredPerPointsList(List<Person> toFilterPersonList, double pointLimit)
+        public List<Person> filteredPerPointsToList(List<Person> toFilterPersonList, double pointLimit)
         {
             List<Person> filteredPerson = new List<Person>();
             for (int i = 0; i < toFilterPersonList.ToArray().Length; i++)
@@ -21,7 +21,7 @@ namespace Abschlussprojekt
             }
             return filteredPerson;
         }
-        public List<Person> filteredPerOnTopPerson(List<Person> toFilterPersonList, double pointLimit, string markerYear)
+        public List<Person> filteredPerOnTopPointsToList(List<Person> toFilterPersonList, double pointLimit, string markerYear)
         {
             List<Person> filteredPerson = new List<Person>();
             for (int i = 0; i < toFilterPersonList.ToArray().Length; i++)
