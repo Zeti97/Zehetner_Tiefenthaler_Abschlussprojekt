@@ -292,10 +292,14 @@ namespace Abschlussprojekt
             }
             return true;
         }
-        public string ToCsvString(char seperator)
+        public string ToCsvStringTotalPoints(char seperator)
         {
-            return FirstName + seperator + Surname + seperator + Address.ToCsvSring(seperator) + seperator;
-        }
+            return LjID + seperator+ FirstName + seperator + Surname + seperator + TotalPoints + seperator + OnTopPointsperYear[0].Marker;
+        } //Zehetner
+        public string ToCsvStringOnTop(char seperator)
+        {
+            return LjID + seperator + FirstName + seperator + Surname + seperator + TotalPoints + seperator + OnTopPointsperYear[0].Marker + seperator + OnTopPointsperYear[0].Points;
+        }//Zehetner
         public static Person ReadPersonFromcsv(string csvline, char seperator)
         {
             string[] parts = csvline.Split(seperator);
