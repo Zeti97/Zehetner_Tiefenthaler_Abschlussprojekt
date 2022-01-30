@@ -15,6 +15,7 @@ namespace Abschlussprojekt
 
             while (true)
             {
+                Console.Clear();
                 MainMenue(personList, dataPath);
             }
             Console.ReadLine();
@@ -47,12 +48,13 @@ namespace Abschlussprojekt
                     {
                         double limitForFilter = AskForLimit();
                         List<Person> filteredList = Helper.filteredPerPointsToList(personList.PersonList, limitForFilter);
+                        Console.WriteLine();
                         for (int i = 0; i < filteredList.ToArray().Length; i++)
                         {
                             Console.WriteLine(Helper.CreateLineForConsolePoints(filteredList[i]) + 
                                               filteredList[i].TotalPoints.ToString("0.0").PadRight(8));
                         }
-                        bool decisioneToSaveData = DecisionQuestion("Wollen Sie Ihre gefilterten Daten in eine Datei schreiben? (J/N)\n");
+                        bool decisioneToSaveData = DecisionQuestion("\nWollen Sie Ihre gefilterten Daten in eine Datei schreiben? (J/N)\n");
                         if(decisioneToSaveData)
                         {
                             string dataPathFilterPerPoints = Read_Write_Data.CreateNewDataPath(dataPath) + "Gesamtpunkt_mit_dem_Grenzwert_" + limitForFilter + ".csv";
@@ -66,13 +68,14 @@ namespace Abschlussprojekt
                         double limitForFilter = AskForLimit();
                         string askedMarker = AskForMarker();
                         List<Person> filteredList = Helper.filteredPerOnTopPointsToList(personList.PersonList, limitForFilter, askedMarker);
+                        Console.WriteLine();
                         for (int i = 0; i < filteredList.ToArray().Length; i++)
                         {
                             Console.WriteLine(Helper.CreateLineForConsolePoints(filteredList[i]) + 
                                               filteredList[i].OnTopPointsperYear[0].Marker.PadRight(18) + 
                                               filteredList[i].OnTopPointsperYear[0].Points.ToString("0.0").PadRight(8));
                         }
-                        bool decisioneToSaveData = DecisionQuestion("Wollen Sie Ihre gefilterten Daten in eine Datei schreiben?");
+                        bool decisioneToSaveData = DecisionQuestion("\nWollen Sie Ihre gefilterten Daten in eine Datei schreiben? (J/N)\n");
                         if (decisioneToSaveData)
                         {
                             string dataPathFilterOnTopPerPoints = Read_Write_Data.CreateNewDataPath(dataPath) + "OnTopPunkte_mit_dem_Grenzwert_" + limitForFilter + "_Jahr_" + askedMarker.Replace('/','-') + ".csv";
