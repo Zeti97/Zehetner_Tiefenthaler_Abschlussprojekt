@@ -70,6 +70,7 @@ namespace Abschlussprojekt
             }
         }
         #endregion
+
         #region constructor
         public Address(string street, string zipcode, string city)
         {
@@ -82,6 +83,7 @@ namespace Abschlussprojekt
 
         }
         #endregion
+
         #region public methods
         public static bool CheckStreetorCity(string inputString)
         {
