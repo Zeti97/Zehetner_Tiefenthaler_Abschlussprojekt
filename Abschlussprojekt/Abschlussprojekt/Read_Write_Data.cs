@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -90,6 +91,100 @@ namespace Abschlussprojekt
                 }
             }
             return existingPerson;
+        }
+        public static void WritePersonTotalPointsToCSV(List<Person> personList, string dataPath, out int error)
+        {
+            error = 0;
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(dataPath, false, Encoding.GetEncoding("iso-8859-1")))
+                {
+                    writer.WriteLine("LJ-ID;Anrede;Vorname;Nachname;Punkte");
+                    for (int i = 0; i < personList.ToArray().Length; i++)
+                    {              
+                            writer.WriteLine(personList[i].ToCsvStringTotalPoints(';'));
+                    }
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                error = 1;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                error = 2;
+            }
+            catch (DirectoryNotFoundException)
+            {
+                error = 3;
+            }
+            catch (PathTooLongException)
+            {
+                error = 4;
+            }
+            catch (IOException)
+            {
+                error = 5;
+            }
+            catch (ArgumentException)
+            {
+                error = 6;
+            }
+            catch (SecurityException)
+            {
+                error = 7;
+            }
+            catch (Exception)
+            {
+                error = 99;
+            }
+        }
+        public static void WritePersonOnTOPPointsToCSV(List<Person> personList, string dataPath, out int error)
+        {
+            error = 0;
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(dataPath, false, Encoding.GetEncoding("iso-8859-1")))
+                {
+                    writer.WriteLine("LJ-ID;Anrede;Vorname;Nachname;Punkte;Marker;OnTop-Punkte");
+                    for (int i = 0; i < personList.ToArray().Length; i++)
+                    {
+                        writer.WriteLine(personList[i].ToCsvStringOnTop(';'));
+                    }
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                error = 1;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                error = 2;
+            }
+            catch (DirectoryNotFoundException)
+            {
+                error = 3;
+            }
+            catch (PathTooLongException)
+            {
+                error = 4;
+            }
+            catch (IOException)
+            {
+                error = 5;
+            }
+            catch (ArgumentException)
+            {
+                error = 6;
+            }
+            catch (SecurityException)
+            {
+                error = 7;
+            }
+            catch (Exception)
+            {
+                error = 99;
+            }
         }
         #endregion
     }
