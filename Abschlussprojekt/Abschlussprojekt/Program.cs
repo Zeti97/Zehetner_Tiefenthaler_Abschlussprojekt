@@ -11,14 +11,17 @@ namespace Abschlussprojekt
         static void Main(string[] args)
         {
             Read_Write_Data personList = new Read_Write_Data();
-            ReadData(personList);
+            ReadData(personList, out string dataPath);
 
+            while (true)
+            {
+                MainMenue(personList, dataPath);
+            }
             Console.ReadLine();           
         }
-
-        static void ReadData(Read_Write_Data personList)
+        static void ReadData(Read_Write_Data personList, out string dataPath)
         {
-            string dataPath = ReadPath();
+            dataPath = ReadPath();
             personList.LoadFile(dataPath, ';', out int error);
 
             ErrorHandlingStream(error, "Einlesen der Daten");
@@ -31,6 +34,65 @@ namespace Abschlussprojekt
             dataPath = Console.ReadLine();
 
             return dataPath;
+        }
+        static void MainMenue(Read_Write_Data personList, string dataPath)
+        {
+            WriteActualMenueToConsole(1);
+
+            int menueNumber = AskAndCheckMenueNumber(2);
+
+            switch (menueNumber)
+            {
+                case 1: //Filter per Points
+                    {
+                        
+                        break;
+                    }
+                case 2: //Filter per OnTop
+                    {
+                       
+                        break;
+                    }
+
+                default:
+                    {
+                        break;
+                    }
+            }
+        }
+        static int AskAndCheckMenueNumber(int highestNumber)
+        {
+            bool checkOfNumberOk;
+            int menueNumber;
+            do
+            {
+                Console.WriteLine();
+                Console.WriteLine("Bitte geben Sie die Nummer des Menüpunktes ein.");
+                string unconvertedMenueNumber = Console.ReadLine();
+
+                bool conversionOk = int.TryParse(unconvertedMenueNumber, out menueNumber);
+                checkOfNumberOk = conversionOk && menueNumber >= 1 && menueNumber <= highestNumber;
+                if (!checkOfNumberOk)
+                {
+                    Console.WriteLine("Die Nummer ist nich im vorgegeben Bereich!");
+                    Console.WriteLine("Bitte wählen Sie eine Nummer zwischen 1 und " + highestNumber + ": ");
+                }
+            }
+            while (!checkOfNumberOk);
+
+            return menueNumber;
+        }
+        static void WriteActualMenueToConsole(int typeOfMenue)
+        {
+            //1....Filter Auswahl
+
+            Console.WriteLine("Bitte wählen ein Menü:");
+
+            if (typeOfMenue == 1)
+            {
+                Console.WriteLine("1...Filtere nach Gesamtpunkteanzahl");
+                Console.WriteLine("2...Filtere nach OnTOP-Punkten");
+            }
         }
         static void ErrorHandlingStream(int error, string nameOfAktion)//Zehetner
         {
