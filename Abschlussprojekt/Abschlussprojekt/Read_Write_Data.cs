@@ -194,6 +194,14 @@ namespace Abschlussprojekt
                 error = 99;
             }
         }
+        public static string CreateNewDataPath(string dataPath)
+        {
+            string dataPathWithoutName = null;
+            string[] partsOfPath = dataPath.Split('\\');
+            partsOfPath[partsOfPath.Length - 1] = "";
+            dataPathWithoutName = string.Join("\\", partsOfPath);
+            return dataPathWithoutName;
+        }
         #endregion
     }
 }

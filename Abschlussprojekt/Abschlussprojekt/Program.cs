@@ -52,10 +52,11 @@ namespace Abschlussprojekt
                             Console.WriteLine(Helper.CreateLineForConsolePoints(filteredList[i]) + 
                                               filteredList[i].TotalPoints.ToString("0.0").PadRight(8));
                         }
-                        bool decisioneToSaveData = DecisionQuestion("Wollen Sie Ihre gefilterten Daten in eine Datei schreiben?");
+                        bool decisioneToSaveData = DecisionQuestion("Wollen Sie Ihre gefilterten Daten in eine Datei schreiben? (J/N)\n");
                         if(decisioneToSaveData)
                         {
-                            Read_Write_Data.WritePersonTotalPointsToCSV(filteredList, dataPath, out int error);
+                            string dataPathFilterPerPoints = Read_Write_Data.CreateNewDataPath(dataPath) + "Gesamtpunkt_mit_dem_Grenzwert_" + limitForFilter;
+                            Read_Write_Data.WritePersonTotalPointsToCSV(filteredList, dataPathFilterPerPoints, out int error);
                             ErrorHandlingStream(error, "Schreiben der Daten in Datei");
                         }
                         break;
@@ -74,7 +75,8 @@ namespace Abschlussprojekt
                         bool decisioneToSaveData = DecisionQuestion("Wollen Sie Ihre gefilterten Daten in eine Datei schreiben?");
                         if (decisioneToSaveData)
                         {
-                            Read_Write_Data.WritePersonOnTOPPointsToCSV(filteredList, dataPath, out int error);
+                            string dataPathFilterOnTopPerPoints = Read_Write_Data.CreateNewDataPath(dataPath) + "OnTopPunkte_mit_dem_Grenzwert_" + limitForFilter + "Jahr_" + askedMarker.Replace('/','-');
+                            Read_Write_Data.WritePersonOnTOPPointsToCSV(filteredList, dataPathFilterOnTopPerPoints, out int error);
                             ErrorHandlingStream(error, "Schreiben der Daten in Datei");
                         }
                         break;

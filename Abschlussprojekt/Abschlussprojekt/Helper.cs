@@ -28,7 +28,7 @@ namespace Abschlussprojekt
             {
                 for (int j = 0; j < toFilterPersonList[i].OnTopPointsperYear.ToArray().Length; j++)
                 {
-                    if(toFilterPersonList[i].OnTopPointsperYear[j].Marker.Remove(0,6) == markerYear)
+                    if(toFilterPersonList[i].OnTopPointsperYear[j].Marker.Remove(0,6).Trim() == markerYear)
                     {
                         if(toFilterPersonList[i].OnTopPointsperYear[j].Points >= pointLimit)
                         {
