@@ -294,7 +294,7 @@ namespace Abschlussprojekt
         }
         public string ToCsvStringTotalPoints(char seperator)
         {
-            return LjID + seperator + Salutation + seperator + FirstName + seperator + Surname + seperator + TotalPoints + seperator + OnTopPointsperYear[0].Marker;
+            return LjID + seperator + Salutation + seperator + FirstName + seperator + Surname + seperator + TotalPoints;
         } //Zehetner
         public string ToCsvStringOnTop(char seperator)
         {
