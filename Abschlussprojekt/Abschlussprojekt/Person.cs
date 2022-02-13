@@ -302,6 +302,9 @@ namespace Abschlussprojekt
         }//Zehetner
         public static Person ReadPersonFromcsv(string csvline, char seperator)
         {
+
+    
+
             string[] parts = csvline.Split(seperator);
             Person readPerson = new Person();
             bool checkinput = CheckLjID(parts[0]) && CheckStringInput(parts[1]) && CheckStringInput(parts[3]) && CheckStringInput(parts[4]) &&

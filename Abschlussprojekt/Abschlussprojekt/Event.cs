@@ -77,6 +77,7 @@ namespace Abschlussprojekt
         {
             bool readOfDataSuccesfull = false;
             Event readData = null;
+            
             string[] parts = dataLine.Split(seperator);
 
             //convert stringdata to correct Datatype
