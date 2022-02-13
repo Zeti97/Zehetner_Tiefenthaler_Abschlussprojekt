@@ -10,8 +10,8 @@ namespace Abschlussprojekt
     {
         static void Main(string[] args)
         {
-            Read_Write_Data personList = new Read_Write_Data();
-            ReadData(personList, out string dataPath);
+            string dataPath = ReadPath();
+            List<Person> personList = ReadData(dataPath);
 
             while (true)
             {
@@ -20,12 +20,13 @@ namespace Abschlussprojekt
             }
             Console.ReadLine();
         }
-        static void ReadData(Read_Write_Data personList, out string dataPath) //Zehetner
-        {
-            dataPath = ReadPath();
-            personList.LoadFile(dataPath, ';', out int error);
+        static List<Person> ReadData(string dataPath) //Zehetner
+        {  
+            List<Person> personList = Read_Write_Data.LoadFile(dataPath, ';', out int error);
 
             ErrorHandlingStream(error, "Einlesen der Daten");
+
+            return personList;
         }
         static string ReadPath()//Zehetner
         {
@@ -36,7 +37,7 @@ namespace Abschlussprojekt
 
             return dataPath;
         }
-        static void MainMenue(Read_Write_Data personList, string dataPath)
+        static void MainMenue(List<Person> personList, string dataPath)
         {
             WriteActualMenueToConsole(1);
 
@@ -47,7 +48,7 @@ namespace Abschlussprojekt
                 case 1: //Filter per Points
                     {
                         double limitForFilter = AskForLimit();
-                        List<Person> filteredList = Helper.filteredPerPointsToList(personList.PersonList, limitForFilter);
+                        List<Person> filteredList = Helper.filteredPerPointsToList(personList, limitForFilter);
                         Console.WriteLine();
                         for (int i = 0; i < filteredList.ToArray().Length; i++)
                         {
@@ -67,7 +68,7 @@ namespace Abschlussprojekt
                     {
                         double limitForFilter = AskForLimit();
                         string askedMarker = AskForMarker();
-                        List<Person> filteredList = Helper.filteredPerOnTopPointsToList(personList.PersonList, limitForFilter, askedMarker);
+                        List<Person> filteredList = Helper.filteredPerOnTopPointsToList(personList, limitForFilter, askedMarker);
                         Console.WriteLine();
                         for (int i = 0; i < filteredList.ToArray().Length; i++)
                         {

@@ -11,31 +11,18 @@ namespace Abschlussprojekt
 {
     public class Read_Write_Data
     {
-        #region members
-        List<Person> _personList = new List<Person>();
-        #endregion
-        #region properties
-        public List<Person> PersonList
-        {
-            get
-            {
-                return _personList;
-            }
-        }
-        #endregion
         #region methods
-        public void LoadFile(string dataPath, char seperator, out int error) 
+        public static List<Person> LoadFile(string dataPath, char seperator, out int error) 
         {
             error = 0;
             int counter = 0;
             int failedEvents = 0;
+            List<Person> personList = new List<Person>();
 
             try
             {
                 using (StreamReader reader = new StreamReader(dataPath, Encoding.GetEncoding("iso-8859-1")))
                 {
-                    
-           
                     while (reader.Peek() != -1)
                     {
                         string line = reader.ReadLine();
@@ -44,17 +31,17 @@ namespace Abschlussprojekt
                             Person newPersonDataLine = Person.ReadPersonFromcsv(line, seperator);
                             Event newEventDataLine = Event.ReadDataLine(line, seperator);
 
-                            int personNumber = CheckIfPersonExists(newPersonDataLine);
-                            int lengthOfList = _personList.ToArray().Length;
+                            int personNumber = CheckIfPersonExists(personList,newPersonDataLine);
+                            int lengthOfList = personList.ToArray().Length;
 
                             if (newPersonDataLine != null && newEventDataLine != null && personNumber == -1)
                             {
-                                _personList.Add(newPersonDataLine);
-                                _personList[lengthOfList].AddEventtoPerson(newEventDataLine,out int error1);
+                                personList.Add(newPersonDataLine);
+                                personList[lengthOfList].AddEventtoPerson(newEventDataLine,out int error1);
                             }
                             if (newPersonDataLine != null && newEventDataLine != null && personNumber != -1)
                             {
-                                _personList[personNumber].AddEventtoPerson(newEventDataLine, out int error2);
+                                personList[personNumber].AddEventtoPerson(newEventDataLine, out int error2);
                             }
                         }
                         counter++;
@@ -85,14 +72,14 @@ namespace Abschlussprojekt
             {
                 error = 99;
             }
+            return personList;
         }
-
-        private int CheckIfPersonExists(Person person)
+        private static int CheckIfPersonExists(List<Person> personList,Person person)
         {
             int existingPerson = -1;
-            for (int i = 0; i < _personList.ToArray().Length; i++)
+            for (int i = 0; i < personList.ToArray().Length; i++)
             {
-                if (_personList[i].LjID == person.LjID)
+                if (personList[i].LjID == person.LjID)
                 {
                     existingPerson = i;
                     break;
