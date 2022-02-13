@@ -47,42 +47,12 @@ namespace Abschlussprojekt
             {
                 case 1: //Filter per Points
                     {
-                        double limitForFilter = AskForLimit();
-                        List<Person> filteredList = Helper.filteredPerPointsToList(personList, limitForFilter);
-                        Console.WriteLine();
-                        for (int i = 0; i < filteredList.ToArray().Length; i++)
-                        {
-                            Console.WriteLine(Helper.CreateLineForConsolePoints(filteredList[i]) + 
-                                              filteredList[i].TotalPoints.ToString("0.0").PadRight(8));
-                        }
-                        bool decisioneToSaveData = DecisionQuestion("\nWollen Sie Ihre gefilterten Daten in eine Datei schreiben? (J/N)\n");
-                        if(decisioneToSaveData)
-                        {
-                            string dataPathFilterPerPoints = Read_Write_Data.CreateNewDataPath(dataPath) + "Gesamtpunkt_mit_dem_Grenzwert_" + limitForFilter + ".csv";
-                            Read_Write_Data.WritePersonTotalPointsToCSV(filteredList, dataPathFilterPerPoints, out int error);
-                            ErrorHandlingStream(error, "Schreiben der Daten in Datei");
-                        }
+                        FilterDataPerPointsOrOnTop(personList, dataPath, true);
                         break;
                     }
                 case 2: //Filter per OnTop
                     {
-                        double limitForFilter = AskForLimit();
-                        string askedMarker = AskForMarker();
-                        List<Person> filteredList = Helper.filteredPerOnTopPointsToList(personList, limitForFilter, askedMarker);
-                        Console.WriteLine();
-                        for (int i = 0; i < filteredList.ToArray().Length; i++)
-                        {
-                            Console.WriteLine(Helper.CreateLineForConsolePoints(filteredList[i]) + 
-                                              filteredList[i].OnTopPointsperYear[0].Marker.PadRight(18) + 
-                                              filteredList[i].OnTopPointsperYear[0].Points.ToString("0.0").PadRight(8));
-                        }
-                        bool decisioneToSaveData = DecisionQuestion("\nWollen Sie Ihre gefilterten Daten in eine Datei schreiben? (J/N)\n");
-                        if (decisioneToSaveData)
-                        {
-                            string dataPathFilterOnTopPerPoints = Read_Write_Data.CreateNewDataPath(dataPath) + "OnTopPunkte_mit_dem_Grenzwert_" + limitForFilter + "_Jahr_" + askedMarker.Replace('/','-') + ".csv";
-                            Read_Write_Data.WritePersonOnTOPPointsToCSV(filteredList, dataPathFilterOnTopPerPoints, out int error);
-                            ErrorHandlingStream(error, "Schreiben der Daten in Datei");
-                        }
+                        FilterDataPerPointsOrOnTop(personList, dataPath, false);
                         break;
                     }
 
@@ -193,7 +163,7 @@ namespace Abschlussprojekt
                 }
             }
         }
-        static double AskForLimit()
+        static double AskForLimit() //Tiefenthaler
         {
             double limitPoints;
             bool checkOfLimitIsOk;
@@ -213,14 +183,26 @@ namespace Abschlussprojekt
 
             return limitPoints;
         }
-        public static bool DecisionQuestion(string askingText)
+        public static bool DecisionQuestion(string askingText) //Tiefenthaler
         {
-            Console.Write(askingText);
-            string decsionContinue = Console.ReadLine();
-            bool decision = decsionContinue.ToLower().Equals("j");
+            bool decision = false;
+            string decsionContinue;
+            do
+            {
+                Console.Write(askingText);
+                decsionContinue = Console.ReadLine();
+                if(decsionContinue.ToLower().Equals("j") || decsionContinue.ToLower().Equals("n"))
+                {
+                    decision = decsionContinue.ToLower().Equals("j");
+                }
+                else
+                {
+                    Console.WriteLine("Ihre Eingabe war nicht korrekt. Bitte geben Sie nur ein \"J\" oder ein \"N\" ein.");
+                }
+            } while (!(decsionContinue.ToLower().Equals("j")|| decsionContinue.ToLower().Equals("n")));
             return decision;
         }
-        public static string AskForMarker()
+        public static string AskForMarker() //Tiefenthaler
         {
             string askedMarker;
             bool checkedMarker;
@@ -239,7 +221,7 @@ namespace Abschlussprojekt
             while (!checkedMarker);
             return (askedMarker);
         }
-        public static bool CheckMarker(string inputMarker)
+        public static bool CheckMarker(string inputMarker) //Tiefenthaler
         {
             string removeSlashString = inputMarker.Remove(4, 1);
             if(!Equals(inputMarker[4], '/'))
@@ -254,6 +236,69 @@ namespace Abschlussprojekt
                 }
             }
             return true;
+        }
+        public static void FilterDataPerPointsOrOnTop(List<Person> toFilterPersonList, string dataPath, bool totalPointsOrOnTop) //Tiefenthaler
+        {
+            double limitForFilter = AskForLimit();
+            string askedMarker = "";
+            List<Person> filteredList = new List<Person> ();
+            if (totalPointsOrOnTop)
+            {
+                filteredList = Helper.filteredPerPointsToList(toFilterPersonList, limitForFilter);
+            }
+            else
+            {
+                askedMarker = AskForMarker();
+                filteredList = Helper.filteredPerOnTopPointsToList(toFilterPersonList, limitForFilter, askedMarker);
+            }
+            Console.WriteLine();
+            WritePersonToConsole(filteredList, totalPointsOrOnTop);
+            AskForDataSaving(filteredList, dataPath, limitForFilter, askedMarker, totalPointsOrOnTop);
+            Console.ReadLine();
+        }
+        public static void WritePersonToConsole(List<Person> toWritePersons, bool totalPointsOrOnTop) //Tiefenthaler
+        {
+            for (int i = 0; i < toWritePersons.ToArray().Length; i++)
+            {
+                string textForConsole = Helper.CreateLineForConsolePoints(toWritePersons[i]);
+                if(totalPointsOrOnTop)
+                {
+                    textForConsole += toWritePersons[i].TotalPoints.ToString("0.0").PadRight(8);
+                }
+                else
+                {
+                    textForConsole += toWritePersons[i].OnTopPointsperYear[0].Marker.PadRight(18) +
+                                              toWritePersons[i].OnTopPointsperYear[0].Points.ToString("0.0").PadRight(8);
+                }
+                Console.WriteLine(textForConsole);
+            }
+        }
+        public static void AskForDataSaving(List<Person> toSavePerons, string dataPath, double limitForFilter, string askedMarker, bool totalPointsOrOnTop) //Tiefenthaler
+        {
+            bool decisioneToSaveData = DecisionQuestion("\nWollen Sie Ihre gefilterten Daten in eine Datei schreiben? (J/N)\n");
+            if (decisioneToSaveData)
+            {
+                int error = 0;
+                if(totalPointsOrOnTop)
+                {
+                    string dataPathFilterPerPoints = Read_Write_Data.CreateNewDataPath(dataPath) + "Gesamtpunkt_mit_dem_Grenzwert_" + limitForFilter + ".csv";
+                    Read_Write_Data.WritePersonTotalPointsToCSV(toSavePerons, dataPathFilterPerPoints, out error);
+                }
+                else
+                {
+                    string dataPathFilterOnTopPerPoints = Read_Write_Data.CreateNewDataPath(dataPath) + "OnTopPunkte_mit_dem_Grenzwert_" + limitForFilter + "_Jahr_" + askedMarker.Replace('/', '-') + ".csv";
+                    Read_Write_Data.WritePersonOnTOPPointsToCSV(toSavePerons, dataPathFilterOnTopPerPoints, out error);
+                }
+                ErrorHandlingStream(error, "Schreiben der Daten in Datei");
+                if(error == 0)
+                {
+                    Console.WriteLine("\nDas Speichern der Daten in eine Datei war erfolgreich.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nMit dem Drücken der Taste \"Enter\" kommen Sie ins Hauptmenü zurück.");
+            }
         }
     }
 }
