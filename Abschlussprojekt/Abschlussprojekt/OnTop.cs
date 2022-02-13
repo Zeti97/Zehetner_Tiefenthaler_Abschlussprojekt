@@ -9,8 +9,8 @@ namespace Abschlussprojekt
     public class OnTop
     {
         #region members
-        string _marker;
-        double _points;
+        private string _marker;
+        private double _points;
         #endregion
 
         #region properties

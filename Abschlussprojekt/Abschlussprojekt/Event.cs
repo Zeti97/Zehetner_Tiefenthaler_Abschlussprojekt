@@ -10,11 +10,11 @@ namespace Abschlussprojekt
    public class Event
     {
         #region members
-        string _name;
-        Enums.emphasis _emphasis;
-        string _category;
-        double _points;
-        string _marker;
+        private string _name;
+        private Enums.emphasis _emphasis;
+        private string _category;
+        private double _points;
+        private string _marker;
         #endregion
 
         #region properties
