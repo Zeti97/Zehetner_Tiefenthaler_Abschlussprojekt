@@ -20,14 +20,14 @@ namespace Abschlussprojekt
             }
             Console.ReadLine();
         }
-        static void ReadData(Read_Write_Data personList, out string dataPath)
+        static void ReadData(Read_Write_Data personList, out string dataPath) //Zehetner
         {
             dataPath = ReadPath();
             personList.LoadFile(dataPath, ';', out int error);
 
             ErrorHandlingStream(error, "Einlesen der Daten");
         }
-        static string ReadPath()
+        static string ReadPath()//Zehetner
         {
             string dataPath = "";
 
@@ -91,7 +91,7 @@ namespace Abschlussprojekt
                     }
             }
         }
-        static int AskAndCheckMenueNumber(int highestNumber)
+        static int AskAndCheckMenueNumber(int highestNumber)//Zehetner
         {
             bool checkOfNumberOk;
             int menueNumber;
@@ -113,7 +113,7 @@ namespace Abschlussprojekt
 
             return menueNumber;
         }
-        static void WriteActualMenueToConsole(int typeOfMenue)
+        static void WriteActualMenueToConsole(int typeOfMenue)//Zehetner
         {
             //1....Filter Auswahl
 
