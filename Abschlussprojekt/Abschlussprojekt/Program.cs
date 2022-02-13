@@ -12,7 +12,6 @@ namespace Abschlussprojekt
         {
             string dataPath = ReadPath();
             List<Person> personList = ReadData(dataPath);
-
             
             while (true)
             {

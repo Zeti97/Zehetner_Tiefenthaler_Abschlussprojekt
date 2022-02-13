@@ -28,16 +28,7 @@ namespace Abschlussprojekt
                         string line = reader.ReadLine();
                         if (counter > 0)
                         {
-                            int index1 = line.IndexOf(";\"");
-                            int index2 = line.IndexOf("\";");
-                            int length = index2 - index1 - 1;
-                            string toExchange = line.Substring(index1 + 1, length);
-                            toExchange = toExchange.Replace(';', ',');
-                            if (index1 > 0)
-                            {
-                                line = line.Remove(index1 + 1, length);
-                                line = line.Insert(index1 + 1, toExchange);
-                            }
+                            line = CheckAndChangeLine(line);
 
                             Person newPersonDataLine = Person.ReadPersonFromcsv(line, seperator);
                             Event newEventDataLine = Event.ReadDataLine(line, seperator);
@@ -199,6 +190,32 @@ namespace Abschlussprojekt
             partsOfPath[partsOfPath.Length - 1] = "";
             dataPathWithoutName = string.Join("\\", partsOfPath);
             return dataPathWithoutName;
+        }
+
+        public static string CheckAndChangeLine(string line)
+        {
+            int index1 = 0;
+            int startindex = 0;
+            do
+            {
+                index1 = line.Substring(startindex, (line.Length - startindex)).IndexOf(";\"");
+                int index2 = line.Substring(startindex, (line.Length - startindex)).IndexOf("\";");
+                int length = index2 - index1;
+
+                startindex += index1;
+
+                if (index1 >= 0 && index2 >= 0)
+                {
+                    string toExchange = line.Substring(startindex + 1, length);
+                    toExchange = toExchange.Replace(';', ',');
+                    toExchange = toExchange.Replace('\"', ' ');
+                    line = line.Remove(startindex + 1, length);
+                    line = line.Insert(startindex + 1, toExchange);
+                }
+            }
+            while (index1 > 0);
+
+            return line;
         }
         #endregion
     }
